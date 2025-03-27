@@ -11,7 +11,7 @@ interface HomeCardProps {
     handleClick?: () => void;
   }
 
-const HomeCard = ({className,img, title, description, handleClick}):HomeCardProps => {
+const HomeCard = ({className,img, title, description, handleClick} :HomeCardProps) => {
   return (
     <section className={cn(
         'bg-orange-1 px-4 py-6 flex flex-col justify-between w-full xl:max-w-[270px] min-h-[260px] rounded-[14px] cursor-pointer',
