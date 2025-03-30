@@ -1,10 +1,13 @@
 "use client";
 import MeetingTypeList from "@/components/MeetingTypeList";
 import { useState,useEffect } from "react";
+import { useUser } from "@clerk/nextjs"; 
 
 const Home = () => {
 
   const [currentTime, setCurrentTime] = useState(new Date());
+  const { user } = useUser(); // Fetch the logged-in user
+  const username = user?.firstName || "User";
 
   useEffect(() => {
     const interval = setInterval(() => {
@@ -33,6 +36,20 @@ const Home = () => {
     hour12: true,
     timeZone: "Asia/Kolkata"
   }).format(meetingTime);
+
+
+  const hour = currentTime.getHours();
+  let greeting;
+  if (hour < 12) {
+    greeting = "Good Morning";
+  } else if (hour < 17) {
+    greeting = "Good Afternoon";
+  } else {
+    greeting = "Good Evening";
+  }
+
+
+
   // const now = new Date();
   // const meetingTime = new Date(now.getTime() + 2 * 60 * 60 * 1000);
 
@@ -48,8 +65,8 @@ const Home = () => {
     <section className="flex size-full flex-col gap-5 text-white">
       <div className="h-[303px] w-full rounded-[20px] bg-hero bg-cover">
         <div className="flex h-full flex-col justify-around max-md:px-5 max-md:py-8 lg:p-11 sm:px-5">
-          <h2 className="glassmorphism max-w-[273px] rounded py-2 text-center text-base font-normal">
-            Upcoming Meeting at: {meetingFormattedTime}
+          <h2 className=" max-w-[300px] rounded py-2 text-center  font-extrabold text-sky-1 text-2xl">
+          {greeting}, {username}!
           </h2>
           <div className="flex flex-col gap-2">
             <h1 className="text-4xl font-extrabold lg:text-7xl">{time}</h1>
